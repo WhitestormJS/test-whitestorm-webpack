@@ -17,7 +17,10 @@ module.exports = {
   plugins: [
     new webpack.NormalModuleReplacementPlugin(/inline\-worker/, 'webworkify-webpack'),
     new webpack.optimize.UglifyJsPlugin({
-      compress: false, // Ammo.js is already compressed and throws error when compressed twice.
+      compress: {
+        hoist_funs: false, // Turn this off to prevent errors with Ammo.js
+        warnings: false
+      },
       minimize: true
     }),
     new webpack.optimize.DedupePlugin()
