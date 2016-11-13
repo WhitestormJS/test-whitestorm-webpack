@@ -1,8 +1,8 @@
-import { World } from 'whitestormjs/lib/core/World';
-import { Sphere } from 'whitestormjs/lib/meshes/Sphere';
-import { Plane } from 'whitestormjs/lib/meshes/Plane';
+import { World } from 'whs/lib/core/World';
+import { Sphere } from 'whs/lib/components/meshes/Sphere';
+import { Plane } from 'whs/lib/components/meshes/Plane';
 
-const GAME = new World({
+const world = new World({
   stats: 'fps', // fps, ms, mb
   autoresize: true,
 
@@ -14,8 +14,10 @@ const GAME = new World({
 
   camera: {
     far: 10000,
-    y: 10,
-    z: 30
+    position: {
+      y: 10,
+      z: 30
+    }
   }
 });
 
@@ -31,14 +33,12 @@ const sphere = new Sphere({
     kind: 'basic'
   },
 
-  pos: {
-    x: 0,
-    y: 100,
-    z: 0
+  position: {
+    y: 100
   }
 });
 
-sphere.addTo(GAME);
+sphere.addTo(world);
 
 new Plane({
   geometry: {
@@ -53,15 +53,9 @@ new Plane({
     kind: 'basic'
   },
 
-  pos: {
-    x: 0,
-    y: 0,
-    z: 0
-  },
-
-  rot: {
+  rotation: {
     x: -Math.PI / 2
   }
-}).addTo(GAME);
+}).addTo(world);
 
-GAME.start();
+world.start();
